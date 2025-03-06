@@ -1,0 +1,23 @@
+** Action State Machine **
+
+*** Concepts ***
+- There are actions. There actions are unique.
+- A charater can only be performing one action at a time (only can be in one state).
+- An action has one or more animations that is played.
+- In general, an "action state" or just "action" will execute until the end of the action's animation.
+- Most actions will return to the "idle" state. Also called "neutral state".
+- The idle states (like standing, crouching, jumping, etc) transtion into attacks and other actions
+commanded by the player.
+
+
+*** Input Handling ***
+- Player input is polled at the start of our game tick.
+- The change in input state needs to be stored somewhere which can be read byt the game simulation.
+- We're going to store input once per game update (frame). This will let us replay inputs to produce
+exactly the same result for testing/replays/network syncronization.
+
+
+** Character Controller **
+- The character will be controlled by a state machine with unique states for each action.
+- State transitions will represent changes from one action to another.
+- Player control (player input) will trigger state data transitions to the desired action.

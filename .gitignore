@@ -1,0 +1,14 @@
+.vscode/
+.vscode/launch.json
+.vscode/tasks.json
+.libs/raylib/raylib_5.5/
+
+# Compiled static libraries
+*.lib
+*.la
+*.a
+*.lai
+*.dll
+
+# Executables
+*.exe
