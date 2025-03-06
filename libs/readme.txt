@@ -3,7 +3,7 @@ Probably.
 
 To get Raylib 5.5 specificaly follow the following steps:
 
-1) Add the submodule: 
+1) Add the submodule:
 
 git submodule add https://github.com/raysan5/raylib.git
 
@@ -39,4 +39,11 @@ git push
 
 
 6) The next time the project is cloned it will get this specific version
-of Raylib.
+of Raylib:
+
+git clone --recursive <repo URL>
+
+Or if you already cloned the project before, delete the raylib files
+(not the folder) and use:
+
+git submodule update --recursive
