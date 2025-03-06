@@ -1,3 +1,0 @@
-[submodule "raylib_5.5"]
-	path = libs/raylib/raylib_5.5
-	url = https://github.com/raysan5/raylib.git
