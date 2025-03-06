@@ -29,4 +29,14 @@ cd ..
 cd ..
 
 
-5) 
+5) Make a commit to the remote repo to register the new SHA-1:
+
+git add .
+
+git commit -m "set submodule to a release SHA1"
+
+git push
+
+
+6) The next time the project is cloned it will get this specific version
+of Raylib.
