@@ -1,13 +1,26 @@
-
-
+#include "raylib.h"
 #include "utils/math.hpp"
 #include "GameSimulation.hpp"
 
 int main() {
     // Initialization
     //--------------------------------------------------------------------------------------
-    const int32_t screenWidth = 800;
-    const int32_t screenHeight = 450;
+    constexpr int32_t screenWidth = 800;
+    constexpr int32_t screenHeight = 450;
+
+    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+
+    while (!WindowShouldClose())
+    {
+        BeginDrawing();
+            ClearBackground(RAYWHITE);
+            DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+        EndDrawing();
+    }
+
+    CloseWindow();
+
+    return 0;
 
     // rl.initWindow(screenWidth, screenHeight, "raylib-zig [core] example - basic window");
     // defer rl.closeWindow(); // Close window and OpenGL context
@@ -91,4 +104,5 @@ int main() {
     //     rl.drawCircle(gameState.physicsComponents[0].position.x, gameState.physicsComponents[0].position.y, 50, rl.Color.maroon);
     //     //----------------------------------------------------------------------------------
     // }
+    // return 0;
 }

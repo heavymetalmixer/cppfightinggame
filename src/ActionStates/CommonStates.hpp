@@ -5,30 +5,30 @@
 #include <stdio.h>
 
 namespace CommonStates {
-    struct Standing {
-        void OnStart(StateMachine::CombatStateContext* context){
+    struct Standing : StateMachine::CombatStateCallbacks {
+        void OnStart(StateMachine::CombatStateContext* context) override {
             printf("Standing.OnStart()\n");
         }
 
-        void OnUpdate(StateMachine::CombatStateContext* context){
+        void OnUpdate(StateMachine::CombatStateContext* context) override {
             printf("Standing.OnUpdate()\n");
         }
 
-        void OnEnd(StateMachine::CombatStateContext* context){
+        void OnEnd(StateMachine::CombatStateContext* context) override {
             printf("Standing.OnEnd()\n");
         }
     };
 
-    struct Crouching {
-        void OnStart(StateMachine::CombatStateContext* context){
+    struct Crouching : StateMachine::CombatStateCallbacks {
+        void OnStart(StateMachine::CombatStateContext* context) override {
             printf("Crouching.OnStart()\n");
         }
 
-        void OnUpdate(StateMachine::CombatStateContext* context){
+        void OnUpdate(StateMachine::CombatStateContext* context) override {
             printf("Crouching.OnUpdate()\n");
         }
 
-        void OnEnd(StateMachine::CombatStateContext* context){
+        void OnEnd(StateMachine::CombatStateContext* context) override {
             printf("Crouching.OnEnd()\n");
         }
     };

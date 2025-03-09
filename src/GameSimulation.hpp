@@ -17,28 +17,20 @@ namespace GameSimulation{
         Input::InputCommand inputCommand {};
     };
 
-    template <typename T>
     struct StateMachineComponent {
         StateMachine::CombatStateContext context {};
-        StateMachine::CombatStateMachineProcessor<T> stateMachine {};
+        StateMachine::CombatStateMachineProcessor stateMachine {};
     };
 
     // For now our only test state is a global constant. Need to move this to somewhere where
     // character specific data is stored
-    // void (*OnStart)(CombatStateContext*) { nullptr };
+    CommonStates::Standing StandingCallbacks {};
 
-    StateMachine::CombatStateCallbacks<CommonStates::Standing> StandingCallbacks {
-        &CommonStates::Standing::OnStart,
-        &CommonStates::Standing::OnUpdate,
-        &CommonStates::Standing::OnEnd,
-    };
-
-    template <typename T>
     struct Gamestate {
         int32_t frameCount { 0 };
         int32_t entityCount { 5 };
         PhysicsComponent physicsComponents[10] {};
-        StateMachineComponent<T> stateMachineComponents[10] {};
+        StateMachineComponent stateMachineComponents[10] {};
         InputComponent inputComponents[2] {};
 
         void Init() {
@@ -65,7 +57,7 @@ namespace GameSimulation{
             std::size_t entityIndex { 0 };
 
             while (entityIndex < entityCount) {
-                StateMachineComponent<T>* component { &stateMachineComponents[entityIndex] };
+                StateMachineComponent* component { &stateMachineComponents[entityIndex] };
 
                 component->stateMachine.UpdateStateMachine();
 

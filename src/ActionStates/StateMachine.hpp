@@ -34,28 +34,27 @@ namespace StateMachine {
     //     void (*OnEnd)(CombatStateContext*);         // Called when finishing an action
     // };
 
-    template <typename T>
     struct CombatStateCallbacks {
-        void(T::*OnStart)(CombatStateContext*);       // Called when starting an action
-        void(T::*OnUpdate)(CombatStateContext*);       // Called when starting an action
-        void(T::*OnEnd)(CombatStateContext*);       // Called when starting an action
+        virtual void OnStart(CombatStateContext* context) = 0;        // Called when starting an action
+        virtual void OnUpdate(CombatStateContext* context) = 0;       // Called when starting an action
+        virtual void OnEnd(CombatStateContext* context) = 0;          // Called when starting an action
+
+        virtual ~CombatStateCallbacks() = default;
     };
 
-    template <typename T>
     struct CombatStateRegistery {
         // static constexpr std::size_t MAX_STATES { 256 };
         #define MAX_STATES 256
-        CombatStateCallbacks<T>* CombatStates[MAX_STATES] { nullptr };
+        CombatStateCallbacks* CombatStates[MAX_STATES] { nullptr };
 
-        void RegisterCommonState(CombatStateID StateID, CombatStateCallbacks<T>* StateCallbacks) {
+        void RegisterCommonState(CombatStateID StateID, CombatStateCallbacks* StateCallbacks) {
             CombatStates[static_cast<std::size_t>(StateID)] = StateCallbacks;
         }
     };
 
     // Runs and keeps track of a state machine
-    template <typename T>
     struct CombatStateMachineProcessor {
-        CombatStateRegistery<T> Registery {};
+        CombatStateRegistery Registery {};
         CombatStateID CurrentState { CombatStateID::Standing };
         CombatStateContext* Context { nullptr };
 
@@ -64,9 +63,12 @@ namespace StateMachine {
                 CombatStateContext* context { Context };
 
                 if (Registery.CombatStates[static_cast<std::size_t>(CurrentState)]) {
-                    CombatStateCallbacks<T>* State { Registery.CombatStates[static_cast<std::size_t>(CurrentState)] };
+                    CombatStateCallbacks* State { Registery.CombatStates[static_cast<std::size_t>(CurrentState)] };
+                    auto onU = std::mem_fn(&CombatStateCallbacks::OnUpdate);
+                    auto onE = std::mem_fn(&CombatStateCallbacks::OnEnd);
+                    auto onS = std::mem_fn(&CombatStateCallbacks::OnStart);
 
-                    if (State->OnUpdate) {
+                    if (&onU) {
                         State->OnUpdate(context);
                     }
 
@@ -74,15 +76,15 @@ namespace StateMachine {
                     if (context->bTransition) {
 
                         // Call the OnEnd function of the previous state to do any cleanup required
-                        if (State->OnEnd) {
+                        if (&onE) {
                             State->OnEnd(context);
                         }
 
                         // Call the OnStart function on the next state to do any setup required
                         if (Registery.CombatStates[static_cast<std::size_t>(context->NextState)]) {
-                            CombatStateCallbacks<T>* NextState { Registery.CombatStates[static_cast<std::size_t>(context->NextState)] };
+                            CombatStateCallbacks* NextState { Registery.CombatStates[static_cast<std::size_t>(context->NextState)] };
 
-                            if (NextState->OnStart) {
+                            if (&onS) {
                                 NextState->OnStart(context);
                             }
                         }
@@ -98,9 +100,8 @@ namespace StateMachine {
         }
     };
 
-    template <typename T>
     struct StateExecutor {
-        CombatStateRegistery<T> StateRegistery {};
+        CombatStateRegistery StateRegistery {};
     };
 
     struct TestContext {
