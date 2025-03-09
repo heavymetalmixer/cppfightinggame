@@ -8,7 +8,7 @@ To get Raylib 5.5 specificaly follow the following steps:
 git submodule add https://github.com/raysan5/raylib.git
 
 
-2) Move the submodule to inside the lib/raylib_5.5 folder:
+2) Move the submodule to inside the libs/raylib_5.5 folder:
 
 git mv raylib libs/raylib/raylib_5.5
 
