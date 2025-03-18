@@ -17,7 +17,34 @@ commanded by the player.
 exactly the same result for testing/replays/network syncronization.
 
 
-** Character Controller **
+*** Character Controller ***
 - The character will be controlled by a state machine with unique states for each action.
 - State transitions will represent changes from one action to another.
 - Player control (player input) will trigger state data transitions to the desired action.
+
+
+*** Character Data ***
+- Max health
+- Walk speed
+- Backup speed
+- Jump velocity
+- Jump gravity
+
+
+*** Action Properties ***
+- Hitboxes
+- Frame duration of an action
+- Looping / not looping
+- Looping sections / animation sections
+- Hit properties
+- Sound effects
+- Animation
+- Transitions
+
+
+*** Hitboxes ***
+- Group hitboxes together.
+- These "groups" exist for a set amount of time during an action.
+- Editable assets that can be referenced by action and a time within that action.
+- At edit time think about hitboxes as (top, left, width, height). Might support more transformations in editor.
+- Runtime data structure. For each hitbox 4 integers (top, left, bottom, right).

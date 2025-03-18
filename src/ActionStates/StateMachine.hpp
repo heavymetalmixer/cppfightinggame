@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <vector>
 #include <functional>
+#include "../Component.hpp"
 #include "../Input.hpp"
 
 namespace StateMachine {
@@ -25,15 +26,10 @@ namespace StateMachine {
         bool bTransition { false };
         CombatStateID NextState { CombatStateID::Standing };
         Input::InputCommand InputCommand {};
+        Component::PhysicsComponent* PhysicsComponent { nullptr };
     };
 
     // Provides an interface for combat states to respond to various events
-    // struct CombatStateCallbacks {
-    //     void (*OnStart)(CombatStateContext*);       // Called when starting an action
-    //     void (*OnUpdate)(CombatStateContext*);      // Called every frame
-    //     void (*OnEnd)(CombatStateContext*);         // Called when finishing an action
-    // };
-
     struct CombatStateCallbacks {
         virtual void OnStart(CombatStateContext* context) = 0;        // Called when starting an action
         virtual void OnUpdate(CombatStateContext* context) = 0;       // Called when starting an action

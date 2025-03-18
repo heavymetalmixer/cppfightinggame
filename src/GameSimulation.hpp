@@ -2,16 +2,12 @@
 #define GAME_SIMULATION_HPP
 
 #include "utils/math.hpp"
+#include "Component.hpp"
 #include "ActionStates/StateMachine.hpp"
 #include "ActionStates/CommonStates.hpp"
 #include "Input.hpp"
 
 namespace GameSimulation{
-    struct PhysicsComponent {
-        math::IntVector2D position {};
-        math::IntVector2D velocity {};
-        math::IntVector2D acceleration {};
-    };
 
     struct InputComponent {
         Input::InputCommand inputCommand {};
@@ -25,17 +21,20 @@ namespace GameSimulation{
     // For now our only test state is a global constant. Need to move this to somewhere where
     // character specific data is stored
     CommonStates::Standing StandingCallbacks {};
+    CommonStates::WalkingForward WalkingForwardCallbacks {};
 
     struct Gamestate {
         int32_t frameCount { 0 };
         int32_t entityCount { 5 };
-        PhysicsComponent physicsComponents[10] {};
+        Component::PhysicsComponent physicsComponents[10] {};
         StateMachineComponent stateMachineComponents[10] {};
         InputComponent inputComponents[2] {};
 
         void Init() {
+            stateMachineComponents[0].context.PhysicsComponent = &physicsComponents[0];
             stateMachineComponents[0].stateMachine.Context = &stateMachineComponents[0].context;
             stateMachineComponents[0].stateMachine.Registery.RegisterCommonState(StateMachine::CombatStateID::Standing, &StandingCallbacks);
+            stateMachineComponents[0].stateMachine.Registery.RegisterCommonState(StateMachine::CombatStateID::WalkingForward, &WalkingForwardCallbacks);
         }
 
         // Handles moving all entities which have a physics component
@@ -43,7 +42,7 @@ namespace GameSimulation{
             std::size_t entityIndex { 0 };
 
             while (entityIndex < entityCount) {
-                PhysicsComponent* component { &physicsComponents[entityIndex] };
+                Component::PhysicsComponent* component { &physicsComponents[entityIndex] };
 
                 // Move position based on the current velocity
                 component->position = component->position.Add(component->velocity);
@@ -65,7 +64,12 @@ namespace GameSimulation{
             }
         }
 
+        void InputCommandSystem() {
+            stateMachineComponents[0].context.InputCommand = inputComponents[0].inputCommand;
+        }
+
         void UpdateGame() {
+            InputCommandSystem();
             ActionSystem();
             PhysicsSystem();
             frameCount += 1;
