@@ -1,3 +1,4 @@
+#include <cassert>
 #include "raylib.h"
 #include "utils/math.hpp"
 #include "GameSimulation.hpp"
@@ -28,7 +29,7 @@ int main() {
     //--------------------------------------------------------------------------------------
 
     // Our game state
-    GameSimulation::Gamestate gameState {};
+    GameSimulation::GameState gameState {};
 
     gameState.Init();
 
@@ -79,6 +80,16 @@ int main() {
 
         // Reflect the position of out game object on screen
         DrawCircle(ScreenX, ScreenY, 50, MAROON);
+
+        if (!gameState.gameData.HitboxGroup.Hitboxes.empty()) {
+            CharacterData::Hitbox hitbox { gameState.gameData.HitboxGroup.Hitboxes[0] };
+            DrawRectangleLines(hitbox.left,
+                               hitbox.top,
+                               hitbox.right - hitbox.left,
+                               hitbox.top - hitbox.bottom,
+                               RED);
+        }
+
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
