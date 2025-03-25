@@ -92,6 +92,20 @@ namespace GameSimulation{
             }
         }
 
+        bool DoHitboxesOverlap(CharacterData::Hitbox a, CharacterData::Hitbox b) {
+            const bool IsNotOverlapping { (a.left > b.right)
+                                       || (b.left > a.right)
+                                       || (a.bottom > b.top)
+                                       || (b.bottom > a.top)
+            };
+
+            return !IsNotOverlapping;
+        }
+
+        void CollisionSystem() {
+
+        }
+
         void InputCommandSystem() {
             stateMachineComponents[0].context.InputCommand = inputComponents[0].inputCommand;
         }

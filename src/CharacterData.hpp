@@ -17,8 +17,8 @@ namespace CharacterData {
     };
 
     struct HitboxGroup {
-        int32_t StartFrame {};
-        int32_t Duration {1};
+        int32_t StartFrame { 0 };
+        int32_t Duration { 1 };
         std::vector<Hitbox> Hitboxes;
     };
 

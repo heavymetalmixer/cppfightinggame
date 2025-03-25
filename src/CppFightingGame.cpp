@@ -87,7 +87,8 @@ int main() {
                                hitbox.top,
                                hitbox.right - hitbox.left,
                                hitbox.top - hitbox.bottom,
-                               RED);
+                               RED
+            );
         }
 
         EndDrawing();
