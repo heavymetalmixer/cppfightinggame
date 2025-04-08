@@ -30,8 +30,12 @@ namespace GameSimulation{
         CharacterData::HitboxGroup HitboxGroup;
         // Here should go a custom allocator for HitboxGroup
 
+        // CharacterData::CharacterProperties CharacterProperties[10];
+
         GameData InitializeGameData() {
             GameData gameData {};
+            // Use std::vector.reserve(x) function here in case more than one hitbox
+            // needs to be put inside gameData.HitboxGroup.Hitboxes
             gameData.HitboxGroup.Hitboxes.push_back(CharacterData::Hitbox { 200, 300, 0, 600 });
 
             assert(!gameData.HitboxGroup.Hitboxes.empty() && "The \"Hitboxes\" std::vector of gameData failed to initialize.\n");
@@ -46,7 +50,7 @@ namespace GameSimulation{
 
     struct GameState {
         int32_t frameCount { 0 };
-        int32_t entityCount { 5 };
+        int32_t entityCount { 1 };
 
         Component::PhysicsComponent physicsComponents[10] {};
         StateMachineComponent stateMachineComponents[10] {};
@@ -90,20 +94,6 @@ namespace GameSimulation{
 
                 entityIndex += 1;
             }
-        }
-
-        bool DoHitboxesOverlap(CharacterData::Hitbox a, CharacterData::Hitbox b) {
-            const bool IsNotOverlapping { (a.left > b.right)
-                                       || (b.left > a.right)
-                                       || (a.bottom > b.top)
-                                       || (b.bottom > a.top)
-            };
-
-            return !IsNotOverlapping;
-        }
-
-        void CollisionSystem() {
-
         }
 
         void InputCommandSystem() {

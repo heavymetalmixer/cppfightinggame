@@ -1,14 +1,10 @@
-#ifndef CHARACTER_DATA
-#define CHARACTER_DATA
+#ifndef CHARACTER_DATA_HPP
+#define CHARACTER_DATA_HPP
 
 #include <cstdint>
 #include <vector>
 
 namespace CharacterData {
-    struct CharacterProperties {
-        int32_t MaxHealth {};
-    };
-
     struct Hitbox {
         int32_t top {};
         int32_t left {};
@@ -24,9 +20,15 @@ namespace CharacterData {
 
     struct ActionProperties {
         int32_t Duration {};
+        std::vector<HitboxGroup> HitboxGroups;
+    };
+
+    struct CharacterProperties {
+        int32_t MaxHealth {};
+        std::vector<ActionProperties> Actions;
     };
 }
 
 
 
-#endif // CHARACTER_DATA
+#endif // CHARACTER_DATA_HPP

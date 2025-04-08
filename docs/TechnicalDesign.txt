@@ -23,6 +23,21 @@ exactly the same result for testing/replays/network syncronization.
 - Player control (player input) will trigger state data transitions to the desired action.
 
 
+*** Persistent Data Store ***
+- Unmutable data
+- Initialize at the start of the match
+- Will not be stored for rollbacks
+- Will not be updated by the game simulation
+- Can be modified by the editor
+
+
+*** Allocators ***
+- Potentially use something in C++ similar to the following allocators in Zig if we know the max
+memory used at compile time:
+std.heap.FixedBufferAllocator or std.heap.ThreadSafeFixedBufferAllocator
+- "GameSimulation::GameState gameState" in the main file should use an Arena Heap Allocator to be initialized
+
+
 *** Character Data ***
 - Max health
 - Walk speed

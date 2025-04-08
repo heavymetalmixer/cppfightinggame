@@ -39,8 +39,8 @@ namespace StateMachine {
     };
 
     struct CombatStateRegistery {
-        // static constexpr std::size_t MAX_STATES { 256 };
-        #define MAX_STATES 256
+        static constexpr std::size_t MAX_STATES { 256 };
+        //#define MAX_STATES 256
         CombatStateCallbacks* CombatStates[MAX_STATES] { nullptr };
 
         void RegisterCommonState(CombatStateID StateID, CombatStateCallbacks* StateCallbacks) {
