@@ -27,18 +27,19 @@ namespace GameSimulation{
     CommonStates::WalkingForward WalkingForwardCallbacks {};
 
     struct GameData {
-        CharacterData::HitboxGroup HitboxGroup;
+        CharacterData::HitboxGroup HitboxGroup; // TODO: Temp data, remove later
+        std::vector<CharacterData::CharacterProperties> Characters;
         // Here should go a custom allocator for HitboxGroup
 
         // CharacterData::CharacterProperties CharacterProperties[10];
 
         GameData InitializeGameData() {
-            GameData gameData {};
+            GameData gameData { {}, {} }; // Here all the GameData members should be initialized with a custom allocator
             // Use std::vector.reserve(x) function here in case more than one hitbox
             // needs to be put inside gameData.HitboxGroup.Hitboxes
-            gameData.HitboxGroup.Hitboxes.push_back(CharacterData::Hitbox { 200, 300, 0, 600 });
+            // gameData.HitboxGroup.Hitboxes.push_back(CharacterData::Hitbox { 200, 300, 0, 600 });
 
-            assert(!gameData.HitboxGroup.Hitboxes.empty() && "The \"Hitboxes\" std::vector of gameData failed to initialize.\n");
+            // assert(!gameData.HitboxGroup.Hitboxes.empty() && "The \"Hitboxes\" std::vector of gameData failed to initialize.\n");
 
             return gameData;
         }

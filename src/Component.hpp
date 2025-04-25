@@ -2,6 +2,7 @@
 #define COMPONENT_HPP
 
 #include "utils/math.hpp"
+#include <cstddef>
 
 namespace Component {
     struct PhysicsComponent {

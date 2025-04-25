@@ -2,7 +2,7 @@
 #define COMMON_STATES_HPP
 
 #include "StateMachine.hpp"
-#include <stdio.h>
+#include <cstdio>
 
 namespace CommonStates {
     struct Standing : StateMachine::CombatStateCallbacks {

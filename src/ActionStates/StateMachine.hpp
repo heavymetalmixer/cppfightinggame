@@ -2,6 +2,7 @@
 #define STATE_MACHINE_HPP
 
 #include <cstdint>
+#include <cstddef>
 #include <vector>
 #include <functional>
 #include "../Component.hpp"

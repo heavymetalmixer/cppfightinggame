@@ -63,3 +63,18 @@ std.heap.FixedBufferAllocator or std.heap.ThreadSafeFixedBufferAllocator
 - Editable assets that can be referenced by action and a time within that action.
 - At edit time think about hitboxes as (top, left, width, height). Might support more transformations in editor.
 - Runtime data structure. For each hitbox 4 integers (top, left, bottom, right).
+
+
+*** Collision System ***
+
+Stage:
+    1) Translate data in our  character data structures to easy-to-process/cache friendly flat arrays of hitboxes.
+    2) Process hitbox collisions and generate overlap events.
+
+
+*** Utility function for getting current hitboxes ***
+- Requirements:
+    1) Get active boxes (attack, vulnerable box, etc).
+    2) Separate functions for getting each type of box (GetAttackBoxes(), GetVulnerableBoxes(), etc).
+    3) Returned boxes are translated by the character position.
+    4) Doesn't allocate memory for the hitboxes storage.

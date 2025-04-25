@@ -11,7 +11,12 @@ namespace Input {
 
         // Resets inputs back to their default values
         void Reset() {
-            *this = InputCommand {};
+            //*this = InputCommand {};
+            Up = false;
+            Down = false;
+            Left = false;
+            Right = false;
+            Attack = false;
         }
     };
 }
